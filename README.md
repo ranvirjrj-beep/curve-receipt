@@ -14,7 +14,7 @@ The demo requires a working devnet faucet and a browser-accessible Solana RPC. T
 
 ## Why this product
 
-Meteora Invent already creates pools, and live indexers already stream DBC launches. CurveReceipt connects the creator's intended terms to a public, independent account read. It surfaces who can claim fees, where leftover tokens go, whether the first buyer has a fee discount, the configured migration fee and its recipients, and how LP allocation and locks are split. Launchpad operators could link the receipt beside a token listing; trader-facing apps could embed the same read. Buyer demand and a paid business model have not been established.
+Meteora Invent already creates pools, live indexers stream DBC launches, and [meteora.fyi's config marketplace](https://meteora.fyi/marketplace/creator-share) already explains curated curves and fee/LP rights in plain language. CurveReceipt reads an arbitrary live DBC account and compares it with a local design draft. It surfaces who can claim fees, where leftover tokens go, first-buyer discounts, migration fees and recipients, and LP allocation/locks. The draft is unsigned, so it cannot prove a creator's earlier promise. Launchpad operators could link a receipt beside a token listing; buyer demand, partner integration and a paid business model have not been established.
 
 ## Local development
 
@@ -34,7 +34,7 @@ The source uses `@meteora-ag/dynamic-bonding-curve-sdk@1.5.13`, `@solana/web3.js
 ## Proof status
 
 - The pinned SDK builder creates the intended DAMM v2 curve offline. Automated tests check the exact 2 SOL threshold, 100% permanent LP lock, migration fee arithmetic, pool progress arithmetic, and invalid fee schedule rejection.
-- The [public build and test run](https://github.com/ranvirjrj-beep/curve-receipt/actions/runs/36973207278) passed on the released source.
+- The [public build and test workflow](https://github.com/ranvirjrj-beep/curve-receipt/actions/workflows/build.yml) checks the current main branch.
 - A [public read-only GitHub Actions run](https://github.com/ranvirjrj-beep/curve-receipt/actions/runs/36972802419) successfully read the live mainnet DBC config `69xxfUPhKAUBFHhsjGMKdoCp9iordjvWktvdJRHAbz3y` through SDK 1.5.13 with RPC head slot 452526714 and verified that its account belongs to the canonical DBC program. The receipt can also be checked by pasting that address in the app.
 - A [public GitHub Actions run](https://github.com/ranvirjrj-beep/curve-receipt/actions/runs/36972800960) passed end to end on a local Solana validator running the **official Meteora program fixture** pinned at `MeteoraAg/dynamic-bonding-curve-sdk@a28b7239e71899eb52ff7aacac4dec90441885c4`. It funded a temporary account with local test SOL, confirmed a real DBC config transaction and pool transaction, reread the accounts, checked the program owner and verified the 2 SOL quote threshold, 0% migration fee, immutable token authority and 100% creator permanently locked LP. The validator is ephemeral: its transaction signatures cannot be looked up on public Solana Explorer.
 - Separate attempts on public devnet failed at the faucet (including a 0.1 SOL request) before any config transaction was sent. A public devnet config/pool signature remains pending; its one-click launch is an optional experiment rather than the reliable judge path.
