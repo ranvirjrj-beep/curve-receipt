@@ -1,0 +1,36 @@
+name: CurveReceipt mainnet read proof
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'proof/mainnet-read.mjs'
+      - '.github/workflows/mainnet-read.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install locked project dependencies
+        run: npm ci --no-audit --no-fund
+      - name: Read a live DBC config without writes
+        run: |
+          set -o pipefail
+          node proof/mainnet-read.mjs | tee mainnet-read.log
+      - name: Save account evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: curve-receipt-mainnet-read
+          path: |
+            mainnet-read.json
+            mainnet-read.log
+          if-no-files-found: warn
