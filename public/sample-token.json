@@ -1,0 +1,6 @@
+{
+  "name": "CurveReceipt Demo",
+  "symbol": "CRD",
+  "description": "A devnet-only sample token launched to verify CurveReceipt's Meteora DBC integration. No investment value or affiliation with Meteora is implied.",
+  "image": "https://curve-receipt.ranvirjroyal.chatgpt.site/sample-token.svg"
+}
