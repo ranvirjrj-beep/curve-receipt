@@ -15,7 +15,7 @@ The form displays an `https://` prefix on URL inputs. Paste the full URL only if
 | Project Github Link | Yes | https://github.com/ranvirjrj-beep/curve-receipt |
 | Project Website | No | https://curve-receipt.ranvirjroyal.chatgpt.site |
 | Project X Link | No | Leave blank; no project X account is verified |
-| Pitch deck or Loom/video presentation | Yes | https://curve-receipt.ranvirjroyal.chatgpt.site/pitch.html — scrollable project pitch with the recorded technical demo |
+| Pitch deck or Loom/video presentation | Yes | https://curve-receipt.ranvirjroyal.chatgpt.site/demo.mp4 — recorded technical video; project pitch page is supplied in Anything Else |
 | Submitted to official Colosseum hackathon? Yes/No | Yes | Entrant must confirm. No submission has been made by this workflow. Do not infer the entrant's independent account activity |
 | Link to Colosseum project | No | Actual project URL only, if one exists |
 | Link to project's Colosseum profile | No | Actual URL only, if one exists |
@@ -30,11 +30,11 @@ The prototype has production-code local-validator config/pool transaction proof 
 
 ## Field-ready Anything Else
 
-Technical demo: https://curve-receipt.ranvirjroyal.chatgpt.site/demo.mp4
+Project pitch, proposed builder-validation and distribution plan: https://curve-receipt.ranvirjroyal.chatgpt.site/pitch.html
 
 Evidence and recording provenance: https://github.com/ranvirjrj-beep/curve-receipt/tree/main/docs/proof
 
-The pitch states a proposed builder-validation and distribution plan; outreach, partnerships and willingness to pay have not been verified. The recording predates a fee-precision correction; current code preserves SDK precision instead of rounding an ending fee before comparison. The comparison is limited to selected terms, trusts RPC responses and is not a token-safety audit or signed creator commitment.
+Outreach, partnerships and willingness to pay have not been verified. The recording predates a fee-precision correction; current code preserves SDK precision instead of rounding an ending fee before comparison. The comparison is limited to selected terms, trusts RPC responses and is not a token-safety audit or signed creator commitment.
 
 ## Main Colosseum entry is separate
 

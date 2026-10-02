@@ -2,6 +2,8 @@
 
 Recorded on 2 October 2026 before submission. This supersedes the engineering status in the earlier frozen review; that earlier record remains unchanged.
 
+**Later update:** the signed-in form, fee-precision regression, current proof runs and public transport checks were completed subsequently. See `PRE_SUBMISSION_AUDIT_2026-10-02.md` for the current decision. The sign-in-wall status below is historical.
+
 ## Decision
 
 **GO for preserving and publishing the repaired developer-tooling prototype and truthful demonstration. HOLD formal submission until the account-specific rules, registration and form have been checked. NO-GO for further feature expansion or spending to chase this prize.**

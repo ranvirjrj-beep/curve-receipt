@@ -1,5 +1,7 @@
 # CurveReceipt
 
+Latest status: [pre-submission audit](docs/PRE_SUBMISSION_AUDIT_2026-10-02.md) and [field-ready side-track copy](docs/SUBMISSION_PACKET.md). The 2 October audit fixed fee rounding before comparison and passed fresh local-program, mainnet-reader, browser and public-link checks. Submission is not confirmed; entrant-specific Yes/No and legal attestations remain. [Project pitch](https://curve-receipt.ranvirjroyal.chatgpt.site/pitch.html).
+
 Creator-side launch planner and independently readable terms receipt for Meteora Dynamic Bonding Curve (DBC) launches. Built for the Crypto World's Fair 2026 Meteora side track.
 
 **Live demo:** https://curve-receipt.ranvirjroyal.chatgpt.site · **Source and public checks:** https://github.com/ranvirjrj-beep/curve-receipt
