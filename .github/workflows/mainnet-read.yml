@@ -4,6 +4,10 @@ on:
     branches: [main]
     paths:
       - 'proof/mainnet-read.mjs'
+      - 'src/chain.ts'
+      - 'src/studio.ts'
+      - 'src/terms.ts'
+      - 'src/compare.ts'
       - '.github/workflows/mainnet-read.yml'
   workflow_dispatch:
 
@@ -24,7 +28,7 @@ jobs:
       - name: Read a live DBC config without writes
         run: |
           set -o pipefail
-          node proof/mainnet-read.mjs | tee mainnet-read.log
+          node --import tsx proof/mainnet-read.mjs | tee mainnet-read.log
       - name: Save account evidence
         if: always()
         uses: actions/upload-artifact@v4

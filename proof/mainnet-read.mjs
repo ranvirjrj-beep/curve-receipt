@@ -1,4 +1,7 @@
 import { writeFileSync } from 'node:fs';
+import { inspect } from '../src/chain.ts';
+import { DEFAULT_DESIGN } from '../src/studio.ts';
+import { comparePlan } from '../src/compare.ts';
 import { Connection, PublicKey } from '@solana/web3.js';
 import { DynamicBondingCurveClient, DYNAMIC_BONDING_CURVE_PROGRAM_ID } from '@meteora-ag/dynamic-bonding-curve-sdk';
 
@@ -14,8 +17,14 @@ const [config, account, slot] = await Promise.all([
 ]);
 if (!config) throw new Error('Meteora SDK could not decode the selected mainnet config');
 if (!account?.owner.equals(DYNAMIC_BONDING_CURVE_PROGRAM_ID)) throw new Error('Unexpected account owner');
+// Exercise the actual application entry point, account decoder and comparison.
+const receipt = await inspect(address.toBase58(), 'mainnet');
+const comparison = comparePlan(DEFAULT_DESIGN, receipt.terms);
 const result = {
-  result: 'MAINNET_DBC_CONFIG_READ_VERIFIED',
+  result: 'MAINNET_PRODUCTION_READER_VERIFIED',
+  observedAt: new Date().toISOString(),
+  receipt: { ...receipt, network: 'mainnet' },
+  comparison,
   address: address.toBase58(),
   slot, genesis,
   program: account.owner.toBase58(),
