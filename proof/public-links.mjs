@@ -1,0 +1,24 @@
+import assert from 'node:assert/strict';
+import { createHash } from 'node:crypto';
+const origin = 'https://curve-receipt.ranvirjroyal.chatgpt.site';
+const get = async path => {
+  const response = await fetch(origin + path, { signal: AbortSignal.timeout(30000) });
+  assert.equal(response.status, 200, `${path}: HTTP ${response.status}`);
+  return response;
+};
+const root = await (await get('/')).text();
+assert.match(root, /CurveReceipt/);
+const assets = [...root.matchAll(/(?:src|href)="(\/assets\/[^" ]+)"/g)].map(match => match[1]);
+assert.ok(assets.length >= 2, 'Production JS and stylesheet must be linked');
+for (const path of assets) assert.ok((await (await get(path)).arrayBuffer()).byteLength > 0);
+const pitch = await (await get('/pitch.html')).text();
+assert.match(pitch, /Proposed distribution/);
+assert.match(pitch, /No own mainnet launch/);
+const video = await get('/demo.mp4');
+assert.match(video.headers.get('content-type') ?? '', /video\/mp4/);
+const videoBytes = Buffer.from(await video.arrayBuffer());
+assert.equal(videoBytes.length, 2611197);
+assert.equal(createHash('sha256').update(videoBytes).digest('hex'), 'e9d38a4baad9ff7868c54d087ec7a968730e80a456df9be1be9ddc3e0bdabcb3');
+const token = await (await get('/sample-token.json')).json();
+assert.ok(token.name && token.symbol);
+console.log(JSON.stringify({ observedAt: new Date().toISOString(), origin, paths: ['/', ...assets, '/pitch.html', '/demo.mp4', '/sample-token.json'], status: 'passed', videoSHA256: createHash('sha256').update(videoBytes).digest('hex') }, null, 2));

@@ -55,6 +55,13 @@ test('disclosure calculations agree with on-chain integer units and remain separ
   assert.equal(terms.creatorLockedLP, 75);
   assert.equal(terms.pool?.progress, 50);
   assert.equal(terms.startFeeBps, 100);
+  // Rounding a fee before comparison can falsely match a different on-chain rate.
+  const preciseConfig = { ...config, poolFees: { ...config.poolFees, baseFee: {
+    ...config.poolFees.baseFee, cliffFeeNumerator: new BN('10000001'),
+  } } } as PoolConfig;
+  const preciseTerms = decodeTerms(preciseConfig, wallet.toBase58(), 9);
+  assert.ok(Math.abs(preciseTerms.endFeeBps - 100.00001) < 1e-10);
+  assert.equal(comparePlan(chosen, preciseTerms).find(row => row.name === 'Ending fee')?.matches, false);
   assert.ok(terms.findings.some(f => f.title.includes('15% graduation fee')));
   const reviewed = comparePlan(chosen, terms);
   assert.equal(reviewed.length, 24);

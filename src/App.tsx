@@ -92,7 +92,7 @@ export default function App() {
       const proof = await launchDevnetDemo(design, setDemoStep, network === 'devnet' ? rpc : undefined);
       setPlanned({ ...design });
       setDemo(proof);
-      setDemoStep('Both accounts verified against the devnet DBC program.');
+      setDemoStep('Config and pool confirmed and read back on devnet.');
       setAddress(proof.pool);
       setNetwork('devnet');
     } catch (e) {

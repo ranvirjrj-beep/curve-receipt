@@ -1,6 +1,44 @@
 # CurveReceipt — submission copy
 
-Prepared on 2 October 2026. This copy is for a developer-tooling prototype entry. Registration and account-specific submission fields have not been verified; this document is not a submission confirmation.
+Updated on 2 October 2026 after reading the signed-in Meteora side-track form. This is prepared copy, not a submission confirmation. Personal attestations and the entrant's actual Colosseum status remain for the entrant to confirm.
+
+## Exact Superteam field mapping
+
+The form displays an `https://` prefix on URL inputs. Paste the full URL only if the form normalizes it; otherwise enter the host/path without duplicating the prefix. Check the displayed final URL before submitting.
+
+| Form field | Required | Prepared value |
+| --- | --- | --- |
+| Link to Your Submission | Yes | https://curve-receipt.ranvirjroyal.chatgpt.site |
+| Tweet Link | No | Leave blank; no public project tweet is verified |
+| Project Name | Yes | CurveReceipt |
+| Project Description | Yes | Use the field-ready description below |
+| Project Github Link | Yes | https://github.com/ranvirjrj-beep/curve-receipt |
+| Project Website | No | https://curve-receipt.ranvirjroyal.chatgpt.site |
+| Project X Link | No | Leave blank; no project X account is verified |
+| Pitch deck or Loom/video presentation | Yes | https://curve-receipt.ranvirjroyal.chatgpt.site/pitch.html — scrollable project pitch with the recorded technical demo |
+| Submitted to official Colosseum hackathon? Yes/No | Yes | Entrant must confirm. No submission has been made by this workflow. Do not infer the entrant's independent account activity |
+| Link to Colosseum project | No | Actual project URL only, if one exists |
+| Link to project's Colosseum profile | No | Actual URL only, if one exists |
+| Anything Else | No | Use the evidence/limitations copy below |
+| Scope-compliance checkbox and final Submit | Yes | Entrant must review scope and terms; unchecked and unsubmitted |
+
+## Field-ready project description
+
+CurveReceipt is a wallet-free Meteora DBC review tool for launchpad builders. It models a fixed-supply SOL-quoted launch with Meteora's official SDK, reads an arbitrary mainnet/devnet config or pool, checks program ownership and RPC network, and compares 24 selected economic terms with an editable local draft. The receipt separates total graduation fees from creator/partner recipients, fee timing and LP allocations. Share links reread the live account; the unsigned draft remains in its originating tab.
+
+The prototype has production-code local-validator config/pool transaction proof and a real-browser live-mainnet inspection demonstration. The mainnet example is independent; local signatures are not public chain transactions. No own mainnet launch, completed swaps/DAMM migration, active users or revenue is claimed. Differentiation and customer demand remain unvalidated. Source is public under MIT; implementation is AI-assisted.
+
+## Field-ready Anything Else
+
+Technical demo: https://curve-receipt.ranvirjroyal.chatgpt.site/demo.mp4
+
+Evidence and recording provenance: https://github.com/ranvirjrj-beep/curve-receipt/tree/main/docs/proof
+
+The pitch states a proposed builder-validation and distribution plan; outreach, partnerships and willingness to pay have not been verified. The recording predates a fee-precision correction; current code preserves SDK precision instead of rounding an ending fee before comparison. The comparison is limited to selected terms, trusts RPC responses and is not a token-safety audit or signed creator commitment.
+
+## Main Colosseum entry is separate
+
+The Superteam side-track FAQ requires a separate submission to each chosen side track. Neither the reviewed FAQ nor this Meteora listing expressly establishes mandatory prior Colosseum submission; the form accepts a Yes/No answer and marks the Colosseum URLs optional. This does not prove sponsor eligibility beyond the published wording. If submitting to Colosseum itself, its current FAQ additionally asks for registration, founder/team background and location, a logo/graphic, a 2–3 minute presentation, a product demo of at most 3 minutes and business/distribution context. The current 73-second technical video is not a completed founder presentation. Do not represent the main entry as ready or submitted.
 
 ## Project name
 
@@ -32,6 +70,7 @@ Existing Meteora creation tools and the meteora.fyi marketplace already offer la
 
 - Product: https://curve-receipt.ranvirjroyal.chatgpt.site
 - Recorded demo: https://curve-receipt.ranvirjroyal.chatgpt.site/demo.mp4
+- Project pitch: https://curve-receipt.ranvirjroyal.chatgpt.site/pitch.html
 - Browser/demo proof: https://github.com/ranvirjrj-beep/curve-receipt/actions/runs/37005781238
 - Public source, MIT license, proof and checks: https://github.com/ranvirjrj-beep/curve-receipt
 - Production mainnet proof: https://github.com/ranvirjrj-beep/curve-receipt/actions/runs/36980040009
@@ -48,4 +87,4 @@ Open Design a launch, review the 2 SOL default threshold and permanent LP alloca
 
 ## Information requiring the entrant
 
-The entrant must verify their age and personal eligibility, existing Colosseum team/project status, correct registration, payout identity/address, and any legal acceptance. Do not invent these facts. The Superteam Submit Now action currently exposes a sign-in wall; actual account-specific form fields remain unreviewed. No entry has been submitted by this work.
+The entrant must verify personal eligibility, actual Colosseum team/project status and any legal acceptance. Payout identity/address must be correct if requested; none is requested in the reviewed side-track submission modal. Superteam sign-in has succeeded and the exact fields above were read. Payout timing and sponsor-specific verification requirements are not established. No entry has been submitted by this work.

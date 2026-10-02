@@ -119,7 +119,8 @@ export function decodeTerms(
     quoteThreshold: formatUnits(threshold, quoteDecimals),
     quoteSymbol: symbol,
     startFeeBps,
-    endFeeBps: Number(endFeeBps.toFixed(2)),
+    // Preserve SDK precision: formatting must not turn a different rate into a match.
+    endFeeBps,
     feeMode: baseFee.baseFeeMode === 0 ? 'Linear' : baseFee.baseFeeMode === 1 ? 'Exponential' : 'Legacy rate limiter',
     feePeriod: baseFee.baseFeeMode === 2 ? 'Legacy rate limiter; fee varies by trade size' : baseFee.firstFactor === 0 ? 'Fixed' : `${baseFee.firstFactor} steps over ${Number(baseFee.secondFactor.toString()) * baseFee.firstFactor} ${config.activationType === 1 ? 'seconds' : 'slots'}`,
     dynamicFee: config.poolFees.dynamicFee.initialized !== 0,

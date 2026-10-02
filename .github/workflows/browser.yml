@@ -9,6 +9,7 @@ on:
       - 'package-lock.json'
       - 'playwright.config.ts'
       - 'tests/browser/**'
+      - 'proof/public-links.mjs'
       - '.github/workflows/browser.yml'
   workflow_dispatch:
 
@@ -27,6 +28,8 @@ jobs:
       - run: npm ci --no-audit --no-fund
       - run: npm test
       - run: npm run build
+      - name: Verify public submission links and exact demonstration bytes
+        run: node proof/public-links.mjs
       - run: npx playwright install --with-deps chromium
       - name: Run real browser journey without mocked RPC data
         run: npx playwright test
