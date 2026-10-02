@@ -57,10 +57,19 @@ test('disclosure calculations agree with on-chain integer units and remain separ
   assert.equal(terms.startFeeBps, 100);
   assert.ok(terms.findings.some(f => f.title.includes('15% graduation fee')));
   const reviewed = comparePlan(chosen, terms);
-  assert.equal(reviewed.length, 10);
+  assert.equal(reviewed.length, 24);
   assert.ok(reviewed.every(row => row.matches), JSON.stringify(reviewed.filter(row => !row.matches)));
   const changed = comparePlan(chosen, { ...terms, creatorLockedLP: 50 });
   assert.deepEqual(changed.filter(row => !row.matches).map(row => row.name), ['Creator permanently locked LP']);
+  // Equal headline fees must not hide different recipients or first-buyer economics.
+  const changedRecipients = comparePlan(chosen, { ...terms, creatorMigrationShare: 50, creatorTradingShare: 50, firstSwapAtMinimum: true, dynamicFee: true, feePeriod: '10 steps over 100 seconds' });
+  assert.deepEqual(changedRecipients.filter(row => !row.matches).map(row => row.name), [
+    'Fee reduction schedule', 'First swap at minimum fee', 'Dynamic fee',
+    'Creator trading fee share', 'Creator graduation fee share',
+  ]);
+  const noTake = { ...chosen, migrationFeePercent: 0 };
+  const noTakeTerms = { ...terms, migrationFee: 0, creatorMigrationShare: 50 };
+  assert.equal(comparePlan(noTake, noTakeTerms).find(row => row.name === 'Creator graduation fee share')?.matches, true);
 });
 
 test('rejects an invalid fee schedule before generating a launch transaction', () => {
