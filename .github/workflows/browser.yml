@@ -39,3 +39,14 @@ jobs:
             playwright-report/
             test-results/
           if-no-files-found: warn
+      - name: Save a compact standalone demonstration
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: curve-receipt-demo
+          path: |
+            test-results/demo-*/video.webm
+            test-results/demo-timeline.json
+            test-results/mainnet-desktop.png
+            test-results/mainnet-mobile.png
+          if-no-files-found: error
