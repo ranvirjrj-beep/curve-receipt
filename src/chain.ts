@@ -19,8 +19,7 @@ export async function inspect(
   network: Network,
   rpc?: string,
 ): Promise<{ terms: LaunchTerms; slot: number }> {
-  let key: PublicKey;
-  try { key = new PublicKey(address.trim()); }
+  try { new PublicKey(address.trim()); }
   catch { throw new Error('Enter a valid Solana config or pool address.'); }
 
   const connection = makeConnection(network, rpc);
@@ -30,6 +29,17 @@ export async function inspect(
       : 'EtWTRABZaYq6iMfeYKouRu166VU2xqa1wcaWoxPkrZBG';
     if (await connection.getGenesisHash() !== expected) throw new Error(`RPC endpoint is not ${network}.`);
   }
+  return readTermsFromConnection(address, connection);
+}
+
+/** Shared production reader; local-validator proof injects its own Connection. */
+export async function readTermsFromConnection(
+  address: string,
+  connection: Connection,
+): Promise<{ terms: LaunchTerms; slot: number }> {
+  let key: PublicKey;
+  try { key = new PublicKey(address.trim()); }
+  catch { throw new Error('Enter a valid Solana config or pool address.'); }
   const queriedAccount = await connection.getAccountInfo(key);
   if (!queriedAccount) throw new Error('No account exists at this address on the selected network.');
   if (!queriedAccount.owner.equals(DYNAMIC_BONDING_CURVE_PROGRAM_ID)) {

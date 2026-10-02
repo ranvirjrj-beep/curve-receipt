@@ -1,9 +1,11 @@
 import { writeFileSync } from 'node:fs';
+import assert from 'node:assert/strict';
+import { buildConfig, DEFAULT_DESIGN } from '../src/studio.ts';
+import { readTermsFromConnection } from '../src/chain.ts';
+import { comparePlan } from '../src/compare.ts';
 import {
-  ActivationType, BaseFeeMode, buildCurve, CollectFeeMode,
   deriveDbcPoolAddress, DYNAMIC_BONDING_CURVE_PROGRAM_ID,
-  DynamicBondingCurveClient, MigrationFeeOption, MigrationOption,
-  TokenAuthorityOption, TokenDecimal, TokenType,
+  DynamicBondingCurveClient,
 } from '@meteora-ag/dynamic-bonding-curve-sdk';
 import { NATIVE_MINT } from '@solana/spl-token';
 import { Connection, Keypair } from '@solana/web3.js';
@@ -17,25 +19,8 @@ const config = Keypair.generate();
 const mint = Keypair.generate();
 console.log('Ephemeral local validator payer:', payer.publicKey.toBase58());
 // Secret keys remain only in this process. They are never printed or uploaded.
-const curve = buildCurve({
-  token: { tokenType: TokenType.SPLToken, tokenBaseDecimal: TokenDecimal.SIX,
-    tokenQuoteDecimal: TokenDecimal.NINE, tokenAuthorityOption: TokenAuthorityOption.Immutable,
-    totalTokenSupply: 100_000_000, leftover: 0 },
-  fee: { baseFeeParams: { baseFeeMode: BaseFeeMode.FeeSchedulerLinear,
-    feeSchedulerParam: { startingFeeBps: 100, endingFeeBps: 100, numberOfPeriod: 0, totalDuration: 0 } },
-    dynamicFeeEnabled: false, collectFeeMode: CollectFeeMode.QuoteToken,
-    creatorTradingFeePercentage: 100, poolCreationFee: 0, enableFirstSwapWithMinFee: false },
-  migration: { migrationOption: MigrationOption.MET_DAMM_V2,
-    migrationFeeOption: MigrationFeeOption.FixedBps25,
-    migrationFee: { feePercentage: 0, creatorFeePercentage: 0 } },
-  liquidityDistribution: { partnerLiquidityPercentage: 0, partnerPermanentLockedLiquidityPercentage: 0,
-    creatorLiquidityPercentage: 0, creatorPermanentLockedLiquidityPercentage: 100 },
-  lockedVesting: { totalLockedVestingAmount: 0, numberOfVestingPeriod: 0, cliffUnlockAmount: 0,
-    totalVestingDuration: 0, cliffDurationFromMigrationTime: 0 },
-  activationType: ActivationType.Timestamp,
-  percentageSupplyOnMigration: 20,
-  migrationQuoteThreshold: 2,
-});
+// Use the exact production builder rather than a separately recreated config.
+const curve = buildConfig(DEFAULT_DESIGN);
 
 // Local validator airdrops avoid public faucet rate limits.
 const airdrop = await connection.requestAirdrop(payer.publicKey, 10_000_000_000);
@@ -78,12 +63,50 @@ if (onchainConfig.migrationOption !== 1 || onchainConfig.migrationFeePercentage 
     onchainConfig.creatorPermanentLockedLiquidityPercentage !== 100 ||
     onchainConfig.migrationQuoteThreshold.toString() !== '2000000000') throw new Error('On-chain economics disagree with intent');
 
+// Read through the same reader/decoder used by the app, then compare all selected terms.
+const receipt = await readTermsFromConnection(pool.toBase58(), connection);
+const comparison = comparePlan(DEFAULT_DESIGN, receipt.terms);
+assert.equal(comparison.length, 24);
+assert.ok(comparison.every(row => row.matches), JSON.stringify(comparison.filter(row => !row.matches)));
+const changedPlan = comparePlan({ ...DEFAULT_DESIGN, threshold: 3 }, receipt.terms);
+assert.deepEqual(changedPlan.filter(row => !row.matches).map(row => row.name), ['Graduation threshold']);
+await assert.rejects(readTermsFromConnection('not-a-solana-address', connection), /valid Solana/);
+await assert.rejects(readTermsFromConnection(Keypair.generate().publicKey.toBase58(), connection), /No account exists/);
+await assert.rejects(readTermsFromConnection(payer.publicKey.toBase58(), connection), /not owned by the Meteora DBC/);
+
+// Reproduce the fee-recipient regression with a real program account, not edited terms.
+const feeDesign = { ...DEFAULT_DESIGN, migrationFeePercent: 15 };
+const feeCurve = buildConfig(feeDesign);
+const splitConfig = Keypair.generate();
+const splitTx = await client.partner.createConfig({
+  ...feeCurve,
+  migrationFee: { feePercentage: 15, creatorFeePercentage: 50 },
+  config: splitConfig.publicKey, feeClaimer: payer.publicKey,
+  leftoverReceiver: payer.publicKey, payer: payer.publicKey, quoteMint: NATIVE_MINT,
+});
+const splitSignature = await send(splitTx, splitConfig);
+const splitReceipt = await readTermsFromConnection(splitConfig.publicKey.toBase58(), connection);
+const splitComparison = comparePlan(feeDesign, splitReceipt.terms);
+assert.equal(splitReceipt.terms.migrationFee, 15);
+assert.equal(splitReceipt.terms.creatorMigrationShare, 50);
+assert.deepEqual(splitComparison.filter(row => !row.matches).map(row => row.name), ['Creator graduation fee share']);
+
 const proof = {
-  result: 'LOCALNET_DBC_CONFIG_AND_POOL_VERIFIED',
+  result: 'LOCALNET_PRODUCTION_FLOW_VERIFIED',
   time: new Date().toISOString(), network: 'localnet', genesis,
   sdk: '1.5.13', program: DYNAMIC_BONDING_CURVE_PROGRAM_ID.toBase58(),
   config: config.publicKey.toBase58(), pool: pool.toBase58(), mint: mint.publicKey.toBase58(),
   configSignature, poolSignature,
+  receipt: { ...receipt, network: 'localnet' },
+  comparison,
+  changedDraft: changedPlan.filter(row => !row.matches),
+  rejectionChecks: ['invalid address', 'missing account', 'wrong program owner'],
+  feeRecipientRegression: {
+    config: splitConfig.publicKey.toBase58(), signature: splitSignature,
+    headlineFeePercent: splitReceipt.terms.migrationFee,
+    creatorFeeSharePercent: splitReceipt.terms.creatorMigrationShare,
+    mismatches: splitComparison.filter(row => !row.matches),
+  },
   observed: { thresholdLamports: onchainConfig.migrationQuoteThreshold.toString(),
     migrationFeePercentage: onchainConfig.migrationFeePercentage,
     creatorPermanentLockedLP: onchainConfig.creatorPermanentLockedLiquidityPercentage,
