@@ -1,21 +1,21 @@
 {
   "result": "LOCALNET_PRODUCTION_FLOW_VERIFIED",
-  "time": "2026-10-02T07:29:36.596Z",
+  "time": "2026-10-02T07:43:46.628Z",
   "network": "localnet",
-  "genesis": "AVhhTjKV8xHvk1tF1oHT4x3p6eA48F7Q7XDZDku2kD1c",
+  "genesis": "JBCQciA8gJEndBpWthpu8mj3Jd7tppqtL1FDMAoVxHyL",
   "sdk": "1.5.13",
   "program": "dbcij3LWUppWqq96dh6gJWwBifmcGfLSB5D4DuSMaqN",
-  "config": "6gttx61fvd3DejshJCgzJMGCV4cFYfr5DSrb8NG9YpnT",
-  "pool": "CkxT9SwLeqR2Kxb2fPBmi4mdT7YWJGj88E55FUED7tzN",
-  "mint": "6MEPvcCripMsicjDeW4rkTasAPsCsJBSTcKARdo7pch1",
-  "configSignature": "4hHep2C3jVvNxHJ5esrsi9JXcGTQWfWQj559KPmC4cyZVmSEFGiB6smrUUCjLKWyXfoQruxWTutnvjhkaFJCe8JL",
-  "poolSignature": "5WbApz1R8qAuhiF9StzfRTyMpQRKjVmPqtWfFtiNWi6NbPXQN4pzWGr4fh8BWduoXrRh9cSPkKfpkAsEokxyoSfK",
+  "config": "AJBXv7agvi5QLEMBvVQCesdmZpEwCGRc5UWWLSgZNUAR",
+  "pool": "ALks1RTYTiDYg7c7UmNr28St7TZczRPHJjiu8MZ21KvL",
+  "mint": "wKeBaYSUmJF8FYmX2Zm61Z1SeZWyKwn5t9kbozZGxxE",
+  "configSignature": "3hrGEsZAmLRr3VyhM2EtPvuwJaPBmWNrEhQPEB1QjZLPSHAKUCaD6qC9Kes7dyrtqEvr2PAXsJxzcGEjbRvmZsvZ",
+  "poolSignature": "5XL6ofe8h44bnpwiEGSKhCyiTd9iPjNJJG3WAZz2jKNmAUFrrpPVWe9GcJegiHHaRznZxoMMGN79CJu85F7v6CKE",
   "receipt": {
     "terms": {
-      "address": "6gttx61fvd3DejshJCgzJMGCV4cFYfr5DSrb8NG9YpnT",
+      "address": "AJBXv7agvi5QLEMBvVQCesdmZpEwCGRc5UWWLSgZNUAR",
       "quoteMint": "So11111111111111111111111111111111111111112",
-      "feeClaimer": "51ScQRKDoRJty3Jo6aFeoQzebu5PPv1AFZPAwX2PQLxQ",
-      "leftoverReceiver": "51ScQRKDoRJty3Jo6aFeoQzebu5PPv1AFZPAwX2PQLxQ",
+      "feeClaimer": "FuyT84nWYtkwUqrtxfd4HeLK5Qyxfc2Y4K8zo2TQN4EB",
+      "leftoverReceiver": "FuyT84nWYtkwUqrtxfd4HeLK5Qyxfc2Y4K8zo2TQN4EB",
       "tokenDecimals": 6,
       "tokenType": "SPL Token",
       "tokenAuthority": "Immutable metadata",
@@ -45,16 +45,16 @@
       "poolCreationFee": "0",
       "migrationTarget": "Meteora DAMM v2",
       "pool": {
-        "address": "CkxT9SwLeqR2Kxb2fPBmi4mdT7YWJGj88E55FUED7tzN",
-        "creator": "51ScQRKDoRJty3Jo6aFeoQzebu5PPv1AFZPAwX2PQLxQ",
-        "baseMint": "6MEPvcCripMsicjDeW4rkTasAPsCsJBSTcKARdo7pch1",
+        "address": "ALks1RTYTiDYg7c7UmNr28St7TZczRPHJjiu8MZ21KvL",
+        "creator": "FuyT84nWYtkwUqrtxfd4HeLK5Qyxfc2Y4K8zo2TQN4EB",
+        "baseMint": "wKeBaYSUmJF8FYmX2Zm61Z1SeZWyKwn5t9kbozZGxxE",
         "state": "Trading on DBC",
         "quoteReserve": "0",
         "progress": 0
       },
       "findings": []
     },
-    "slot": 31,
+    "slot": 32,
     "network": "localnet"
   },
   "comparison": [
@@ -217,8 +217,8 @@
     "wrong program owner"
   ],
   "feeRecipientRegression": {
-    "config": "ai1YCztddfpi7uqnkKHT2WtnhpMd7WBstntesnkpvbn",
-    "signature": "4UB5juhMGLp5ao2zByqBAyfcNMGNPrBaTzUdNhW5X5TXRv261SzDbNS6XC5J5BvB7FKzJfMe6qVfmiEfb22jrqTz",
+    "config": "8zQ6vCnKZ6q81Yu4tMYnC9fHHV9DbaxcCiHYdQREMjbU",
+    "signature": "2T4QoiQGkdVa5hUzFGQ5mQZMs5ZVB2RUXkbCPkT22jKPXHpdhMorvj3s6bWygKWjj2ckQHcMEcy9WWswdkkx62v6",
     "headlineFeePercent": 15,
     "creatorFeeSharePercent": 50,
     "mismatches": [
@@ -235,8 +235,8 @@
     "migrationFeePercentage": 0,
     "creatorPermanentLockedLP": 100,
     "tokenUpdateAuthority": 1,
-    "poolConfig": "6gttx61fvd3DejshJCgzJMGCV4cFYfr5DSrb8NG9YpnT",
-    "poolCreator": "51ScQRKDoRJty3Jo6aFeoQzebu5PPv1AFZPAwX2PQLxQ"
+    "poolConfig": "AJBXv7agvi5QLEMBvVQCesdmZpEwCGRc5UWWLSgZNUAR",
+    "poolCreator": "FuyT84nWYtkwUqrtxfd4HeLK5Qyxfc2Y4K8zo2TQN4EB"
   },
-  "sourceRun": "https://github.com/ranvirjrj-beep/curve-receipt/actions/runs/36978776529"
+  "sourceRun": "https://github.com/ranvirjrj-beep/curve-receipt/actions/runs/36980040043"
 }

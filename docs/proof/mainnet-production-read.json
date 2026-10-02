@@ -1,6 +1,6 @@
 {
   "result": "MAINNET_PRODUCTION_READER_VERIFIED",
-  "observedAt": "2026-10-02T07:27:33.503Z",
+  "observedAt": "2026-10-02T07:43:22.597Z",
   "receipt": {
     "terms": {
       "address": "69xxfUPhKAUBFHhsjGMKdoCp9iordjvWktvdJRHAbz3y",
@@ -48,7 +48,7 @@
         }
       ]
     },
-    "slot": 452542532,
+    "slot": 452546095,
     "network": "mainnet"
   },
   "comparison": [
@@ -198,7 +198,7 @@
     }
   ],
   "address": "69xxfUPhKAUBFHhsjGMKdoCp9iordjvWktvdJRHAbz3y",
-  "slot": 452542531,
+  "slot": 452546095,
   "genesis": "5eykt4UsFv8P8NJdTREpY1vzqKqZKvdpKuc147dw2N9d",
   "program": "dbcij3LWUppWqq96dh6gJWwBifmcGfLSB5D4DuSMaqN",
   "quoteMint": "So11111111111111111111111111111111111111112",
@@ -212,5 +212,5 @@
   "creatorLockedPercentage": 50,
   "tokenAuthority": 1,
   "firstSwapMinFee": 1,
-  "sourceRun": "https://github.com/ranvirjrj-beep/curve-receipt/actions/runs/36978632246"
+  "sourceRun": "https://github.com/ranvirjrj-beep/curve-receipt/actions/runs/36980040009"
 }

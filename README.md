@@ -10,7 +10,7 @@ Creator-side launch planner and independently readable terms receipt for Meteora
 2. **Optional devnet experiment** uses a temporary in-memory wallet, a 0.25 SOL devnet airdrop request, and the Meteora SDK to create a config and a virtual pool. Its shared faucet has repeatedly failed before a transaction. No public devnet launch is claimed. It does not submit any transaction on mainnet.
 3. **Verify** takes a config or pool address on either network and reads `PoolConfig` and `VirtualPool` through the official SDK, including standard and transfer-hook variants. The result links to Solana Explorer and can be shared as a URL. No wallet connection is needed for inspection. An optional local draft comparison checks 24 selected economic terms, including fee timing, creator/partner fee shares, first-buyer discounts and LP allocation; it does not compare the entire curve or migration supply target; the draft is editable and is not an authenticated promise.
 
-The demo requires a working devnet faucet and a browser-accessible Solana RPC. The default public RPC may rate limit requests. A user can supply their own HTTPS RPC endpoint. The temporary wallet disappears with the tab. The receipt displays the RPC head slot observed after account reads, not an atomic snapshot slot; it does not attest who operates a token or what they will do later.
+The read-only judge path requires a browser-accessible Solana RPC and no faucet. Only the optional devnet creation experiment requires a working faucet. Mainnet reads use the free PublicNode endpoint; devnet uses Solana's public endpoint. Every endpoint is checked against the selected network genesis. Public RPCs may reject or rate limit requests. A user can supply their own HTTPS RPC endpoint. The temporary wallet disappears with the tab. The receipt displays the RPC head slot observed after account reads, not an atomic snapshot slot; it does not attest who operates a token or what they will do later.
 
 ## Why this product
 
@@ -33,13 +33,12 @@ The source uses `@meteora-ag/dynamic-bonding-curve-sdk@1.5.13`, `@solana/web3.js
 
 ## Proof status
 
-- The pinned SDK builder creates the intended DAMM v2 curve offline. Automated tests check the exact 2 SOL threshold, 100% permanent LP lock, migration fee arithmetic, pool progress arithmetic, and invalid fee schedule rejection.
-- The [public build and test workflow](https://github.com/ranvirjrj-beep/curve-receipt/actions/workflows/build.yml) checks the current main branch.
-- A [public read-only GitHub Actions run](https://github.com/ranvirjrj-beep/curve-receipt/actions/runs/36972802419) successfully read the live mainnet DBC config `69xxfUPhKAUBFHhsjGMKdoCp9iordjvWktvdJRHAbz3y` through SDK 1.5.13 with RPC head slot 452526714 and verified that its account belongs to the canonical DBC program. The receipt can also be checked by pasting that address in the app.
-- A [public GitHub Actions run](https://github.com/ranvirjrj-beep/curve-receipt/actions/runs/36972800960) passed end to end on a local Solana validator running the **official Meteora program fixture** pinned at `MeteoraAg/dynamic-bonding-curve-sdk@a28b7239e71899eb52ff7aacac4dec90441885c4`. It funded a temporary account with local test SOL, confirmed a real DBC config transaction and pool transaction, reread the accounts, checked the program owner and verified the 2 SOL quote threshold, 0% migration fee, immutable token authority and 100% creator permanently locked LP. The validator is ephemeral: its transaction signatures cannot be looked up on public Solana Explorer.
-- Separate attempts on public devnet failed at the faucet (including a 0.1 SOL request) before any config transaction was sent. A public devnet config/pool signature remains pending; its one-click launch is an optional experiment rather than the reliable judge path.
-- The receipt checks that the queried account and a pool's linked config are owned by the canonical Meteora DBC program. A user-supplied RPC must also report the genesis hash of the selected network. RPC responses themselves are not cryptographic proofs of honesty.
-- Mainnet read-through in a browser, devnet browser action, buyer validation, and a video remain release gates. On 2 October the supervised preview was running, but browser access was blocked by the preview environment, so browser QA was not marked passed; a local unit test does not substitute for any of them. The demo URL is public, but its one-click devnet creation still depends on the public faucet.
+- Pinned-SDK builder and economic regression checks pass. The [build workflow](https://github.com/ranvirjrj-beep/curve-receipt/actions/workflows/build.yml) checks the current source.
+- The application's production reader successfully [read a real mainnet config](https://github.com/ranvirjrj-beep/curve-receipt/actions/runs/36980040009) at RPC head slot 452546095. The saved [receipt and comparison](docs/proof/mainnet-production-read.json) show **11/24 selected matches** with the default draft. This independent config is not a launch created by CurveReceipt.
+- The production builder, reader, decoder and comparison passed a [real local-program write/read test](https://github.com/ranvirjrj-beep/curve-receipt/actions/runs/36980040043). The official Meteora program fixture is pinned at SDK source commit `a28b7239e71899eb52ff7aacac4dec90441885c4`. Real config and pool transactions produce 24/24 matches; a changed draft identifies the threshold difference. A second real config with a 15% headline fee and 50% creator share correctly differs from a 100% creator-share draft. Invalid address, missing account and wrong owner are rejected. [Full evidence](docs/proof/localnet-production-flow.json). Local transaction signatures cannot be verified on public Explorer.
+- A [real Chromium browser journey](https://github.com/ranvirjrj-beep/curve-receipt/actions/runs/37005781238) passed live mainnet comparison, share URL and fresh-tab reread, mobile layout, invalid input and wrong-network errors. No RPC responses were mocked. The test serves the production bundle locally in CI; it is not a claim of testing the hosted site's transport. It exposed and led to fixing the original default mainnet RPC's browser-side 403.
+- The optional public devnet experiment remains faucet-dependent. Attempts failed before config creation. No public devnet launch, swap, DAMM migration, mainnet write, user traction, customer validation or revenue is claimed.
+- The earlier frozen [release review](docs/RELEASE_REVIEW_2026-10-02.md) preserves the state before these repairs. The subsequent [completion review](docs/COMPLETION_REVIEW_2026-10-02.md) records current proof and remaining entry/market risks. [Submission copy](docs/SUBMISSION_PACKET.md) is prepared, but no submission is confirmed.
 
 ## Reproduce the program write/read proof locally
 
@@ -48,9 +47,22 @@ With Node 22+, Solana CLI/test-validator v3.1.10, and no public-network SOL:
 1. Run `npm ci` in this project.
 2. Get the official SDK source at commit `a28b7239e71899eb52ff7aacac4dec90441885c4`.
 3. Start `solana-test-validator --reset --bpf-program dbcij3LWUppWqq96dh6gJWwBifmcGfLSB5D4DuSMaqN <sdk>/packages/dynamic-bonding-curve/tests/fixtures/dynamic_bonding_curve.so --bpf-program metaqbxxUerdq28cj1RbAWkYQm3ybzjb6a8bt518x1s <sdk>/packages/dynamic-bonding-curve/tests/fixtures/metaplex.so`.
-4. Run `node proof/localnet.mjs`. The script asserts the real config and pool state and writes `proof.json`.
+4. Run `node --import tsx proof/localnet.mjs`. The script asserts the real config and pool state and writes `proof.json`.
 
 The reproducible CI setup is in [`.github/workflows/localnet-proof.yml`](https://github.com/ranvirjrj-beep/curve-receipt/blob/main/.github/workflows/localnet-proof.yml) and its public action logs. `proof/localnet.mjs` contains no wallet secret; every run generates a temporary signer.
+
+**Recorded demo:** [73-second English-captioned walkthrough](https://curve-receipt.ranvirjroyal.chatgpt.site/demo.mp4) · [Recording provenance](docs/proof/demo-provenance.json)
+
+## Browser reproduction and demo
+
+```sh
+npm ci
+npx playwright install --with-deps chromium
+npm run build
+npx playwright test
+```
+
+The three journey tests have no mocked RPC data and no automatic retries. `tests/browser/demo.spec.ts` separately records a deliberately paced live-account walkthrough. Every browser run saves its screenshots, videos and traces as a GitHub Actions artifact. Live network availability can change after a successful run.
 
 ## References
 

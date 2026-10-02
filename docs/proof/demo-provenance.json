@@ -1,0 +1,45 @@
+{
+  "environment": "CI production bundle served locally; live mainnet RPC, no mocked account data",
+  "timeline": [
+    {
+      "seconds": 0.443,
+      "caption": "CurveReceipt | Compare a launch draft with live Meteora DBC economics"
+    },
+    {
+      "seconds": 7.077,
+      "caption": "Official SDK model: 2 SOL target, zero graduation fee, permanent LP lock"
+    },
+    {
+      "seconds": 16.713,
+      "caption": "Live MAINNET account read | Independent existing config, no wallet required"
+    },
+    {
+      "seconds": 26.009,
+      "caption": "Separate total migration fee from creator and partner recipient amounts"
+    },
+    {
+      "seconds": 35.301,
+      "caption": "24 selected terms | An editable local draft is not a signed creator promise"
+    },
+    {
+      "seconds": 45.591,
+      "caption": "Recipient shares matter: equal headline fees can pay different people"
+    },
+    {
+      "seconds": 54.926,
+      "caption": "Share the account URL | The local draft is deliberately absent from the link"
+    },
+    {
+      "seconds": 62.541,
+      "caption": "Prototype limits: no user traction; local config/pool proof is separate"
+    }
+  ],
+  "durationSeconds": 70.554,
+  "sourceRun": "https://github.com/ranvirjrj-beep/curve-receipt/actions/runs/37005781238",
+  "sourceCommit": "4fbd1a208f66437fef0f9eb0fd1fee499d547e9b",
+  "rawVideoSHA256": "d302bed46087a404901a75c9107cf0b506430b924fdaefdf6a58a6c220bee727",
+  "edit": "Original paced recording, English captions and bottom padding only; no replaced network results, narration, or simulated transactions",
+  "exportVideoSHA256": "e9d38a4baad9ff7868c54d087ec7a968730e80a456df9be1be9ddc3e0bdabcb3",
+  "exportBytes": 2611197,
+  "exportDurationSeconds": 72.6
+}

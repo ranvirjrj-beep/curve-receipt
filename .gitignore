@@ -1,0 +1,12 @@
+node_modules/
+dist/
+.env*
+*.keypair.json
+*.secret
+.sites-runtime/
+*.tar.gz
+playwright-report/
+test-results/
+test-ledger/
+proof.json
+mainnet-proof.json
