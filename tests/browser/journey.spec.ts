@@ -41,6 +41,8 @@ test('live mainnet draft comparison, share URL and mobile layout', async ({ page
   await expect(page.getByRole('heading', { name: 'Launch receipt', exact: true })).toBeVisible();
   const dimensions = await page.evaluate(() => ({ width: innerWidth, content: document.documentElement.scrollWidth }));
   expect(dimensions.content).toBeLessThanOrEqual(dimensions.width);
+  const rowsFit = await page.locator('.comparison-row').evaluateAll(rows => rows.every(row => row.scrollWidth <= row.clientWidth));
+  expect(rowsFit).toBe(true);
   await page.screenshot({ path: 'test-results/mainnet-mobile.png', fullPage: true });
   await page.getByRole('button', { name: 'Clear draft' }).click();
   await expect(page.locator('.comparison')).toHaveCount(0);
