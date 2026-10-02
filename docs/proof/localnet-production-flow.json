@@ -1,0 +1,242 @@
+{
+  "result": "LOCALNET_PRODUCTION_FLOW_VERIFIED",
+  "time": "2026-10-02T07:29:36.596Z",
+  "network": "localnet",
+  "genesis": "AVhhTjKV8xHvk1tF1oHT4x3p6eA48F7Q7XDZDku2kD1c",
+  "sdk": "1.5.13",
+  "program": "dbcij3LWUppWqq96dh6gJWwBifmcGfLSB5D4DuSMaqN",
+  "config": "6gttx61fvd3DejshJCgzJMGCV4cFYfr5DSrb8NG9YpnT",
+  "pool": "CkxT9SwLeqR2Kxb2fPBmi4mdT7YWJGj88E55FUED7tzN",
+  "mint": "6MEPvcCripMsicjDeW4rkTasAPsCsJBSTcKARdo7pch1",
+  "configSignature": "4hHep2C3jVvNxHJ5esrsi9JXcGTQWfWQj559KPmC4cyZVmSEFGiB6smrUUCjLKWyXfoQruxWTutnvjhkaFJCe8JL",
+  "poolSignature": "5WbApz1R8qAuhiF9StzfRTyMpQRKjVmPqtWfFtiNWi6NbPXQN4pzWGr4fh8BWduoXrRh9cSPkKfpkAsEokxyoSfK",
+  "receipt": {
+    "terms": {
+      "address": "6gttx61fvd3DejshJCgzJMGCV4cFYfr5DSrb8NG9YpnT",
+      "quoteMint": "So11111111111111111111111111111111111111112",
+      "feeClaimer": "51ScQRKDoRJty3Jo6aFeoQzebu5PPv1AFZPAwX2PQLxQ",
+      "leftoverReceiver": "51ScQRKDoRJty3Jo6aFeoQzebu5PPv1AFZPAwX2PQLxQ",
+      "tokenDecimals": 6,
+      "tokenType": "SPL Token",
+      "tokenAuthority": "Immutable metadata",
+      "supply": "100,000,000",
+      "quoteThreshold": "2",
+      "quoteSymbol": "SOL",
+      "startFeeBps": 100,
+      "endFeeBps": 100,
+      "feeMode": "Linear",
+      "feePeriod": "Fixed",
+      "dynamicFee": false,
+      "firstSwapAtMinimum": false,
+      "creatorTradingShare": 100,
+      "migrationFee": 0,
+      "creatorMigrationShare": 0,
+      "migrationFeeAmount": "0",
+      "creatorMigrationAmount": "0",
+      "partnerMigrationAmount": "0",
+      "migratedPoolFee": "0.25%",
+      "partnerUnlockedLP": 0,
+      "creatorUnlockedLP": 0,
+      "partnerLockedLP": 0,
+      "creatorLockedLP": 100,
+      "partnerVesting": 0,
+      "creatorVesting": 0,
+      "curveSegments": 2,
+      "poolCreationFee": "0",
+      "migrationTarget": "Meteora DAMM v2",
+      "pool": {
+        "address": "CkxT9SwLeqR2Kxb2fPBmi4mdT7YWJGj88E55FUED7tzN",
+        "creator": "51ScQRKDoRJty3Jo6aFeoQzebu5PPv1AFZPAwX2PQLxQ",
+        "baseMint": "6MEPvcCripMsicjDeW4rkTasAPsCsJBSTcKARdo7pch1",
+        "state": "Trading on DBC",
+        "quoteReserve": "0",
+        "progress": 0
+      },
+      "findings": []
+    },
+    "slot": 31,
+    "network": "localnet"
+  },
+  "comparison": [
+    {
+      "name": "Quote asset",
+      "planned": "SOL",
+      "onchain": "SOL",
+      "matches": true
+    },
+    {
+      "name": "Graduation threshold",
+      "planned": "2 SOL",
+      "onchain": "2 SOL",
+      "matches": true
+    },
+    {
+      "name": "Pre-migration token supply",
+      "planned": "100,000,000",
+      "onchain": "100,000,000",
+      "matches": true
+    },
+    {
+      "name": "Token type",
+      "planned": "SPL Token",
+      "onchain": "SPL Token",
+      "matches": true
+    },
+    {
+      "name": "Token decimals",
+      "planned": "6",
+      "onchain": "6",
+      "matches": true
+    },
+    {
+      "name": "Opening fee",
+      "planned": "100 bps",
+      "onchain": "100 bps",
+      "matches": true
+    },
+    {
+      "name": "Ending fee",
+      "planned": "100 bps",
+      "onchain": "100 bps",
+      "matches": true
+    },
+    {
+      "name": "Fee schedule mode",
+      "planned": "Linear",
+      "onchain": "Linear",
+      "matches": true
+    },
+    {
+      "name": "Fee reduction schedule",
+      "planned": "Fixed",
+      "onchain": "Fixed",
+      "matches": true
+    },
+    {
+      "name": "First swap at minimum fee",
+      "planned": "No",
+      "onchain": "No",
+      "matches": true
+    },
+    {
+      "name": "Dynamic fee",
+      "planned": "Off",
+      "onchain": "Off",
+      "matches": true
+    },
+    {
+      "name": "Creator trading fee share",
+      "planned": "100%",
+      "onchain": "100%",
+      "matches": true
+    },
+    {
+      "name": "Pool creation fee",
+      "planned": "0 SOL",
+      "onchain": "0 SOL",
+      "matches": true
+    },
+    {
+      "name": "Total graduation fee",
+      "planned": "0%",
+      "onchain": "0%",
+      "matches": true
+    },
+    {
+      "name": "Creator graduation fee share",
+      "planned": "Not applicable (no graduation fee)",
+      "onchain": "Not applicable (no graduation fee)",
+      "matches": true
+    },
+    {
+      "name": "Creator LP outside permanent lock",
+      "planned": "0%",
+      "onchain": "0%",
+      "matches": true
+    },
+    {
+      "name": "Creator permanently locked LP",
+      "planned": "100%",
+      "onchain": "100%",
+      "matches": true
+    },
+    {
+      "name": "Partner LP outside permanent lock",
+      "planned": "0%",
+      "onchain": "0%",
+      "matches": true
+    },
+    {
+      "name": "Partner permanently locked LP",
+      "planned": "0%",
+      "onchain": "0%",
+      "matches": true
+    },
+    {
+      "name": "Creator non-permanent LP vesting",
+      "planned": "0%",
+      "onchain": "0%",
+      "matches": true
+    },
+    {
+      "name": "Partner non-permanent LP vesting",
+      "planned": "0%",
+      "onchain": "0%",
+      "matches": true
+    },
+    {
+      "name": "Token authority",
+      "planned": "Immutable metadata",
+      "onchain": "Immutable metadata",
+      "matches": true
+    },
+    {
+      "name": "Migration target",
+      "planned": "Meteora DAMM v2",
+      "onchain": "Meteora DAMM v2",
+      "matches": true
+    },
+    {
+      "name": "DAMM trading fee",
+      "planned": "0.25%",
+      "onchain": "0.25%",
+      "matches": true
+    }
+  ],
+  "changedDraft": [
+    {
+      "name": "Graduation threshold",
+      "planned": "3 SOL",
+      "onchain": "2 SOL",
+      "matches": false
+    }
+  ],
+  "rejectionChecks": [
+    "invalid address",
+    "missing account",
+    "wrong program owner"
+  ],
+  "feeRecipientRegression": {
+    "config": "ai1YCztddfpi7uqnkKHT2WtnhpMd7WBstntesnkpvbn",
+    "signature": "4UB5juhMGLp5ao2zByqBAyfcNMGNPrBaTzUdNhW5X5TXRv261SzDbNS6XC5J5BvB7FKzJfMe6qVfmiEfb22jrqTz",
+    "headlineFeePercent": 15,
+    "creatorFeeSharePercent": 50,
+    "mismatches": [
+      {
+        "name": "Creator graduation fee share",
+        "planned": "100% of graduation fee",
+        "onchain": "50% of graduation fee",
+        "matches": false
+      }
+    ]
+  },
+  "observed": {
+    "thresholdLamports": "2000000000",
+    "migrationFeePercentage": 0,
+    "creatorPermanentLockedLP": 100,
+    "tokenUpdateAuthority": 1,
+    "poolConfig": "6gttx61fvd3DejshJCgzJMGCV4cFYfr5DSrb8NG9YpnT",
+    "poolCreator": "51ScQRKDoRJty3Jo6aFeoQzebu5PPv1AFZPAwX2PQLxQ"
+  },
+  "sourceRun": "https://github.com/ranvirjrj-beep/curve-receipt/actions/runs/36978776529"
+}

@@ -1,0 +1,41 @@
+name: CurveReceipt browser journey
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'src/**'
+      - 'index.html'
+      - 'package.json'
+      - 'package-lock.json'
+      - 'playwright.config.ts'
+      - 'tests/browser/**'
+      - '.github/workflows/browser.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  journey:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: npm ci --no-audit --no-fund
+      - run: npm test
+      - run: npm run build
+      - run: npx playwright install --with-deps chromium
+      - name: Run real browser journey without mocked RPC data
+        run: npx playwright test
+      - name: Save browser videos, screenshots and traces
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: curve-receipt-browser-proof
+          path: |
+            playwright-report/
+            test-results/
+          if-no-files-found: warn
