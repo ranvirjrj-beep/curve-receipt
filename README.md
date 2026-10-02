@@ -1,8 +1,8 @@
 # CurveReceipt
 
-Latest status: [pre-submission audit](docs/PRE_SUBMISSION_AUDIT_2026-10-02.md) and [field-ready side-track copy](docs/SUBMISSION_PACKET.md). The 2 October audit fixed fee rounding before comparison and passed fresh local-program, mainnet-reader, browser and public-link checks. Submission is not confirmed; entrant-specific Yes/No and legal attestations remain. [Project pitch](https://curve-receipt.ranvirjroyal.chatgpt.site/pitch.html).
+Latest status: technical prototype with an improved builder review flow and [presentation/validation gate](docs/PRESENTATION_AND_VALIDATION.md). Final submission readiness is on hold while external usefulness, distribution and entrant-specific requirements remain unverified. The earlier [pre-submission audit](docs/PRE_SUBMISSION_AUDIT_2026-10-02.md) records technical proof; it is not evidence of demand or payout likelihood. [Prepared submission copy](docs/SUBMISSION_PACKET.md) · [Project pitch](https://curve-receipt.ranvirjroyal.chatgpt.site/pitch.html).
 
-Creator-side launch planner and independently readable terms receipt for Meteora Dynamic Bonding Curve (DBC) launches. Built for the Crypto World's Fair 2026 Meteora side track.
+Compare intended launch economics with a live Meteora Dynamic Bonding Curve (DBC) configuration. Built for launchpad engineers reviewing fee recipients and liquidity terms before linking a launch. The same headline migration fee can pay a different creator share; the local-program proof demonstrates this distinction.
 
 **Live demo:** https://curve-receipt.ranvirjroyal.chatgpt.site · **Source and public checks:** https://github.com/ranvirjrj-beep/curve-receipt
 
@@ -78,3 +78,4 @@ The three journey tests have no mocked RPC data and no automatic retries. `tests
 ## License
 
 MIT. This project uses Meteora's SDK under its own license; no SDK source is copied into this repository.
+
