@@ -1,5 +1,5 @@
 import { Connection, PublicKey } from '@solana/web3.js';
-import { DynamicBondingCurveClient } from '@meteora-ag/dynamic-bonding-curve-sdk';
+import { DynamicBondingCurveClient, DYNAMIC_BONDING_CURVE_PROGRAM_ID } from '@meteora-ag/dynamic-bonding-curve-sdk';
 import { decodeTerms, type LaunchTerms } from './terms';
 
 export const RPC = {
@@ -24,6 +24,17 @@ export async function inspect(
   catch { throw new Error('Enter a valid Solana config or pool address.'); }
 
   const connection = makeConnection(network, rpc);
+  if (rpc?.trim()) {
+    const expected = network === 'mainnet'
+      ? '5eykt4UsFv8P8NJdTREpY1vzqKqZKvdpKuc147dw2N9d'
+      : 'EtWTRABZaYq6iMfeYKouRu166VU2xqa1wcaWoxPkrZBG';
+    if (await connection.getGenesisHash() !== expected) throw new Error(`RPC endpoint is not ${network}.`);
+  }
+  const queriedAccount = await connection.getAccountInfo(key);
+  if (!queriedAccount) throw new Error('No account exists at this address on the selected network.');
+  if (!queriedAccount.owner.equals(DYNAMIC_BONDING_CURVE_PROGRAM_ID)) {
+    throw new Error('This account is not owned by the Meteora DBC program.');
+  }
   const client = DynamicBondingCurveClient.create(connection, 'confirmed');
   // The SDK recognizes standard and transfer-hook accounts with their own discriminators.
   let config = await client.state.getPoolConfig(key).catch(() => null);
@@ -34,6 +45,10 @@ export async function inspect(
     if (!account) throw new Error('No DBC config or pool exists at this address on the selected network.');
     pool = { address: key.toBase58(), account };
     configAddress = account.poolState.config.toBase58();
+    const configAccount = await connection.getAccountInfo(account.poolState.config);
+    if (!configAccount?.owner.equals(DYNAMIC_BONDING_CURVE_PROGRAM_ID)) {
+      throw new Error('The linked config is missing or is not owned by the Meteora DBC program.');
+    }
     config = await client.state.getPoolConfig(account.poolState.config);
     if (!config) throw new Error('Pool found, but its DBC config could not be read.');
   }
