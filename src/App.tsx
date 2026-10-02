@@ -77,9 +77,13 @@ export default function App() {
   }
 
   async function copyReceipt() {
-    await navigator.clipboard.writeText(location.href);
-    setCopied(true);
-    window.setTimeout(() => setCopied(false), 2200);
+    try {
+      await navigator.clipboard.writeText(location.href);
+      setCopied(true);
+      window.setTimeout(() => setCopied(false), 2200);
+    } catch {
+      setError('Could not copy the link. You can share the receipt URL from your address bar.');
+    }
   }
 
   async function runDemo() {

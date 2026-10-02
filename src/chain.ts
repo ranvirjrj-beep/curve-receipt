@@ -3,7 +3,7 @@ import { DynamicBondingCurveClient, DYNAMIC_BONDING_CURVE_PROGRAM_ID } from '@me
 import { decodeTerms, type LaunchTerms } from './terms';
 
 export const RPC = {
-  mainnet: 'https://api.mainnet-beta.solana.com',
+  mainnet: 'https://solana-rpc.publicnode.com',
   devnet: 'https://api.devnet.solana.com',
 } as const;
 export type Network = keyof typeof RPC;
@@ -23,7 +23,7 @@ export async function inspect(
   catch { throw new Error('Enter a valid Solana config or pool address.'); }
 
   const connection = makeConnection(network, rpc);
-  if (rpc?.trim()) {
+  {
     const expected = network === 'mainnet'
       ? '5eykt4UsFv8P8NJdTREpY1vzqKqZKvdpKuc147dw2N9d'
       : 'EtWTRABZaYq6iMfeYKouRu166VU2xqa1wcaWoxPkrZBG';
