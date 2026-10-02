@@ -1,4 +1,5 @@
 node_modules/
+.local-checks/
 dist/
 .env*
 *.keypair.json
@@ -10,3 +11,4 @@ test-results/
 test-ledger/
 proof.json
 mainnet-proof.json
+

@@ -18,11 +18,15 @@ test('live mainnet draft comparison, share URL and mobile layout', async ({ page
   const errors: string[] = [];
   page.on('pageerror', error => errors.push(error.message));
   await page.goto('/');
-  await page.getByRole('button', { name: 'Design a launch' }).click();
-  await page.getByRole('button', { name: 'Compare with a live mainnet example' }).click();
+  await page.getByRole('button', { name: 'Try the live comparison' }).click();
   await expect(page.getByRole('heading', { name: 'Launch receipt', exact: true })).toBeVisible();
   await expect(page.getByRole('heading', { name: /\/24 selected terms match/ })).toBeVisible();
   await expect(page.locator('.comparison-row.mismatch').first()).toBeVisible();
+  await expect(page.locator('.comparison-row.match')).toHaveCount(0);
+  await page.getByRole('button', { name: 'Show all 24 terms' }).click();
+  await expect(page.locator('.comparison-row')).toHaveCount(24);
+  await page.getByRole('button', { name: 'Show differences only' }).click();
+  await expect(page.locator('.comparison-row.match')).toHaveCount(0);
   await expect(page.locator('.comparison-row').filter({ hasText: 'Creator graduation fee share' })).toBeVisible();
   await expect(page.locator('.receipt-head')).toContainText('MAINNET');
   await page.screenshot({ path: 'test-results/mainnet-desktop.png', fullPage: true });
@@ -58,3 +62,4 @@ test('an RPC on a different network is rejected before account inspection', asyn
   await expect(page.getByRole('alert')).toContainText('RPC endpoint is not mainnet');
   await expect(page.getByRole('heading', { name: 'Launch receipt', exact: true })).toHaveCount(0);
 });
+
