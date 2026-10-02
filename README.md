@@ -2,6 +2,8 @@
 
 Creator-side launch planner and independently readable terms receipt for Meteora Dynamic Bonding Curve (DBC) launches. Built for the Crypto World's Fair 2026 Meteora side track.
 
+**Live demo:** https://curve-receipt.ranvirjroyal.chatgpt.site · **Source and public checks:** https://github.com/ranvirjrj-beep/curve-receipt
+
 ## User journey
 
 1. **Design** a fixed-supply SOL-quoted launch: quote threshold, supply, opening fee, migration fee and permanent LP lock. The official `buildCurve` helper produces a real DBC configuration; invalid curves are rejected.
@@ -32,10 +34,11 @@ The source uses `@meteora-ag/dynamic-bonding-curve-sdk@1.5.13`, `@solana/web3.js
 ## Proof status
 
 - The pinned SDK builder creates the intended DAMM v2 curve offline. Automated tests check the exact 2 SOL threshold, 100% permanent LP lock, migration fee arithmetic, pool progress arithmetic, and invalid fee schedule rejection.
+- The [public build and test run](https://github.com/ranvirjrj-beep/curve-receipt/actions/runs/36973207278) passed on the released source.
 - A [public read-only GitHub Actions run](https://github.com/ranvirjrj-beep/curve-receipt/actions/runs/36972802419) successfully read the live mainnet DBC config `69xxfUPhKAUBFHhsjGMKdoCp9iordjvWktvdJRHAbz3y` through SDK 1.5.13 with RPC head slot 452526714 and verified that its account belongs to the canonical DBC program. The receipt can also be checked by pasting that address in the app.
 - A [public GitHub Actions run](https://github.com/ranvirjrj-beep/curve-receipt/actions/runs/36972800960) passed end to end on a local Solana validator running the **official Meteora program fixture** pinned at `MeteoraAg/dynamic-bonding-curve-sdk@a28b7239e71899eb52ff7aacac4dec90441885c4`. It funded a temporary account with local test SOL, confirmed a real DBC config transaction and pool transaction, reread the accounts, checked the program owner and verified the 2 SOL quote threshold, 0% migration fee, immutable token authority and 100% creator permanently locked LP. The validator is ephemeral: its transaction signatures cannot be looked up on public Solana Explorer.
 - A separate workflow attempts the same operations on public devnet. Its faucet request failed with an RPC error before any config transaction was sent. A public devnet config/pool signature remains pending, and the site's one-click launch is subject to the same faucet availability.
-- Mainnet read-through in a browser, devnet browser action, public demo access, buyer validation, and a video are release gates; a local unit test does not substitute for any of them.
+- Mainnet read-through in a browser, devnet browser action, buyer validation, and a video are release gates; a local unit test does not substitute for any of them. The demo URL is public, but its one-click devnet creation still depends on the public faucet.
 
 ## Reproduce the program write/read proof locally
 
