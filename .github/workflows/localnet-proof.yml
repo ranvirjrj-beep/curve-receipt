@@ -4,6 +4,10 @@ on:
     branches: [main]
     paths:
       - 'proof/localnet.mjs'
+      - 'src/chain.ts'
+      - 'src/studio.ts'
+      - 'src/terms.ts'
+      - 'src/compare.ts'
       - '.github/workflows/localnet-proof.yml'
   workflow_dispatch:
 
@@ -42,7 +46,7 @@ jobs:
       - name: Create and read back DBC config and pool
         run: |
           set -o pipefail
-          node proof/localnet.mjs | tee run-localnet.log
+          node --import tsx proof/localnet.mjs | tee run-localnet.log
       - name: Save proof
         if: always()
         uses: actions/upload-artifact@v4
