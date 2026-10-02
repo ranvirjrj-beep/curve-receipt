@@ -1,0 +1,55 @@
+name: CurveReceipt program write/read proof
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'proof/localnet.mjs'
+      - '.github/workflows/localnet-proof.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
+        with:
+          repository: MeteoraAg/dynamic-bonding-curve-sdk
+          ref: a28b7239e71899eb52ff7aacac4dec90441885c4
+          path: meteora-sdk
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install locked project dependencies
+        run: npm ci --no-audit --no-fund
+      - name: Install Solana local validator
+        run: |
+          sh -c "$(curl -sSfL https://release.anza.xyz/v3.1.10/install)"
+          echo "$HOME/.local/share/solana/install/active_release/bin" >> "$GITHUB_PATH"
+      - name: Start validator with official Meteora program fixtures
+        run: |
+          nohup solana-test-validator --reset \
+            --bpf-program dbcij3LWUppWqq96dh6gJWwBifmcGfLSB5D4DuSMaqN meteora-sdk/packages/dynamic-bonding-curve/tests/fixtures/dynamic_bonding_curve.so \
+            --bpf-program metaqbxxUerdq28cj1RbAWkYQm3ybzjb6a8bt518x1s meteora-sdk/packages/dynamic-bonding-curve/tests/fixtures/metaplex.so \
+            > validator.log 2>&1 &
+          sleep 12
+          solana --url localhost cluster-version
+      - name: Create and read back DBC config and pool
+        run: |
+          set -o pipefail
+          node proof/localnet.mjs | tee run-localnet.log
+      - name: Save proof
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: curve-receipt-localnet-proof
+          path: |
+            proof.json
+            run-localnet.log
+            validator.log
+          if-no-files-found: warn
