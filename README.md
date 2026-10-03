@@ -1,6 +1,10 @@
 # CurveReceipt
 
-Latest status: technical prototype with an improved builder review flow and [presentation/validation gate](docs/PRESENTATION_AND_VALIDATION.md). Final submission readiness is on hold while external usefulness, distribution and entrant-specific requirements remain unverified. The earlier [pre-submission audit](docs/PRE_SUBMISSION_AUDIT_2026-10-02.md) records technical proof; it is not evidence of demand or payout likelihood. [Prepared submission copy](docs/SUBMISSION_PACKET.md) · [Project pitch](https://ranvirjrj-beep.github.io/curve-receipt/pitch.html).
+**Start here:** [Live product](https://ranvirjrj-beep.github.io/curve-receipt/) · [77-second product demo](https://www.youtube.com/watch?v=c4B01SQSc5A) · [Problem, workflow and proof](https://ranvirjrj-beep.github.io/curve-receipt/pitch.html).
+
+Current prototype: one-click intended-versus-live comparison, differences-first review, and shareable account receipts. The public deployment and mainnet browser transport were checked on 3 October 2026. [Build](https://github.com/ranvirjrj-beep/curve-receipt/actions/runs/37099938925), [browser journey](https://github.com/ranvirjrj-beep/curve-receipt/actions/runs/37099938898), and [Pages deployment](https://github.com/ranvirjrj-beep/curve-receipt/actions/runs/37099938958) passed for source revision `7d610576780e5024970245d5ef6ef41d0003515b`.
+
+Colosseum registration, founder profile, project graphic, code and product-demo links are saved. The separate founder pitch remains pending, and final submission opens 6 October. External builder feedback and repeated use are the next validation gate; no adoption or revenue is claimed. Earlier dated [reviews](docs/PRE_SUBMISSION_AUDIT_2026-10-02.md) preserve the state when recorded. [Prepared submission copy](docs/SUBMISSION_PACKET.md) is historical preparation, not a submission receipt.
 
 Compare intended launch economics with a live Meteora Dynamic Bonding Curve (DBC) configuration. Built for launchpad engineers reviewing fee recipients and liquidity terms before linking a launch. The same headline migration fee can pay a different creator share; the local-program proof demonstrates this distinction.
 
