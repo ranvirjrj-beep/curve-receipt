@@ -1,10 +1,10 @@
 # CurveReceipt
 
-Latest status: technical prototype with an improved builder review flow and [presentation/validation gate](docs/PRESENTATION_AND_VALIDATION.md). Final submission readiness is on hold while external usefulness, distribution and entrant-specific requirements remain unverified. The earlier [pre-submission audit](docs/PRE_SUBMISSION_AUDIT_2026-10-02.md) records technical proof; it is not evidence of demand or payout likelihood. [Prepared submission copy](docs/SUBMISSION_PACKET.md) · [Project pitch](https://curve-receipt.ranvirjroyal.chatgpt.site/pitch.html).
+Latest status: technical prototype with an improved builder review flow and [presentation/validation gate](docs/PRESENTATION_AND_VALIDATION.md). Final submission readiness is on hold while external usefulness, distribution and entrant-specific requirements remain unverified. The earlier [pre-submission audit](docs/PRE_SUBMISSION_AUDIT_2026-10-02.md) records technical proof; it is not evidence of demand or payout likelihood. [Prepared submission copy](docs/SUBMISSION_PACKET.md) · [Project pitch](https://ranvirjrj-beep.github.io/curve-receipt/pitch.html).
 
 Compare intended launch economics with a live Meteora Dynamic Bonding Curve (DBC) configuration. Built for launchpad engineers reviewing fee recipients and liquidity terms before linking a launch. The same headline migration fee can pay a different creator share; the local-program proof demonstrates this distinction.
 
-**Live demo:** https://curve-receipt.ranvirjroyal.chatgpt.site · **Source and public checks:** https://github.com/ranvirjrj-beep/curve-receipt
+**Live demo:** https://ranvirjrj-beep.github.io/curve-receipt · **Source and public checks:** https://github.com/ranvirjrj-beep/curve-receipt
 
 ## User journey
 
@@ -53,7 +53,7 @@ With Node 22+, Solana CLI/test-validator v3.1.10, and no public-network SOL:
 
 The reproducible CI setup is in [`.github/workflows/localnet-proof.yml`](https://github.com/ranvirjrj-beep/curve-receipt/blob/main/.github/workflows/localnet-proof.yml) and its public action logs. `proof/localnet.mjs` contains no wallet secret; every run generates a temporary signer.
 
-**Recorded demo:** [73-second English-captioned walkthrough](https://curve-receipt.ranvirjroyal.chatgpt.site/demo.mp4) · [Recording provenance](docs/proof/demo-provenance.json)
+**Recorded demo:** [77-second continuous technical walkthrough](https://ranvirjrj-beep.github.io/curve-receipt/CurveReceipt-current-technical-demo.mp4) · [Recording provenance](public/CURVERECEIPT_CURRENT_DEMO_PROVENANCE.md). The current recording shows the tested source served locally in CI, with live mainnet RPC. The older 73-second recording remains historical evidence in `docs/proof/demo-provenance.json`.
 
 ## Browser reproduction and demo
 
